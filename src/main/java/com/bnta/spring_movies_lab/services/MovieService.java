@@ -28,4 +28,9 @@ public class MovieService {
     public Movie addMovie(Movie movie) {
         return movieRepository.save(movie);
     }
+
+    public List<Movie> getMoviesByMaxDuration(int maxDuration) {
+        return movieRepository.findByDurationLessThan(maxDuration);
+    }
+
 }

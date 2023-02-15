@@ -22,6 +22,12 @@ public class MovieController {
         return new ResponseEntity<>(movies, HttpStatus.OK);
     }
 
+    @GetMapping
+    public ResponseEntity<List<Movie>> getAllMovies(@RequestParam int maxDuration) {
+        List<Movie> movies = movieService.getMoviesByMaxDuration(maxDuration);
+        return new ResponseEntity<>(movies, HttpStatus.OK);
+    }
+
     @GetMapping(value = "/{id}")
     public ResponseEntity<Movie> getMovieById(@PathVariable int id) {
         Movie movie = movieService.getMovieById(id);
