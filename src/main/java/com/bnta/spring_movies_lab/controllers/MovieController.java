@@ -39,4 +39,18 @@ public class MovieController {
         Movie addedMovie = movieService.addMovie(movie);
         return new ResponseEntity<>(addedMovie, HttpStatus.CREATED);
     }
+
+    @PatchMapping(value = "/{id}")
+    public ResponseEntity<Movie> updateMovie(@PathVariable int id, @RequestBody Movie updatedMovie) {
+        movieService.updateMovie(id, updatedMovie);
+        Movie movie = movieService.getMovieById(id);
+        return new ResponseEntity<>(movie, HttpStatus.OK);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> deleteMovie(@PathVariable int id) {
+        movieService.deleteMovie(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
 }

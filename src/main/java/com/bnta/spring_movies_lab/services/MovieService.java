@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MovieService {
@@ -31,6 +32,21 @@ public class MovieService {
 
     public List<Movie> getMoviesByMaxDuration(int maxDuration) {
         return movieRepository.findByDurationLessThan(maxDuration);
+    }
+
+    public void updateMovie(int id, Movie updatedMovie) {
+        Optional<Movie> optionalMovie = movieRepository.findById(id);
+        if (optionalMovie.isPresent()) {
+            Movie movie = optionalMovie.get();
+            movie.setTitle(updatedMovie.getTitle());
+            movie.setRating(updatedMovie.getRating());
+            movie.setDuration(updatedMovie.getDuration());
+            movieRepository.save(movie);
+        }
+    }
+
+    public void deleteMovie(int id) {
+        movieRepository.deleteById(id);
     }
 
 }
